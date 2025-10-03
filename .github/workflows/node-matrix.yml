@@ -1,7 +1,6 @@
 name: Node Matrix Test
 
-on:
-  workflow_dispatch:
+on: [push]
 
 jobs:
   build:
