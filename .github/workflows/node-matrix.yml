@@ -4,11 +4,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node-version: [12.x, 16.x]
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -17,13 +13,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix['node-version'] }}
+          node-version: 21
 
       - name: Install dependencies
         run: npm install || echo "No package.json found"
 
       - name: Show environment
         run: |
-          echo "Node version: ${{ matrix['node-version'] }}"
+          echo "Node version:"
           node -v
-          echo "OS: ${{ matrix.os }}"
+          echo "OS: $(uname -a)"
