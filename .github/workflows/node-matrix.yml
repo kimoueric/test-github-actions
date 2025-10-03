@@ -1,0 +1,30 @@
+name: Node Matrix Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [12.x, 16.x]
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix['node-version'] }}
+
+      - name: Install dependencies
+        run: npm install || echo "No package.json found"
+
+      - name: Show environment
+        run: |
+          echo "Node version: ${{ matrix['node-version'] }}"
+          node -v
+          echo "OS: ${{ matrix.os }}"
